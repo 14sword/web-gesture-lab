@@ -5,7 +5,9 @@ const $ = id => document.getElementById(id);
 
 let activeView = null; // 'ink' or 'tree' or null
 
-// Background canvas setup
+// Frame throttling for smoother rendering
+let lastRenderTime = 0;
+const MIN_FRAME_MS = 1000 / 45; // target ~45 FPS
 const bgC = $('bg-c'), bgX = bgC.getContext('2d');
 let bgW, bgH, bgP = [];
 
@@ -13,7 +15,7 @@ function bgResize(){
   bgW = bgC.width = window.innerWidth;
   bgH = bgC.height = window.innerHeight;
   bgP = [];
-  for(let i=0; i<40; i++) {
+  for(let i = 0; i < 150; i++) {
     bgP.push({
       x: Math.random()*bgW,
       y: Math.random()*bgH,
@@ -112,6 +114,14 @@ document.addEventListener('keydown', e => {
 
 // Main Loop
 function mainLoop(){
+  // Throttle rendering to maintain target FPS
+  const now = Date.now();
+  if (now - lastRenderTime < MIN_FRAME_MS) {
+    requestAnimationFrame(mainLoop);
+    return;
+  }
+  lastRenderTime = now;
+
   if(activeView === null) {
     bgRender();
   } else {

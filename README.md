@@ -29,11 +29,13 @@
 - 🎶 **动态手势音效与背景音乐**：进入不同场景自适应调配和播放 BGM，核心手势触发时带有 Web Audio API 实时合成的清脆音效反馈。
 - 🕸️ **极强网络容错 (Resiliency Fallback)**：CDN 库部分加载失败时，自动降级为手写的 `requestAnimationFrame` 原生视频流捕获循环，确保系统稳定不崩溃。
 
----
+## 📸 预览 (Preview)
 
-![Interactive Gesture Lab Preview](assets/preview.png)
+### 3D 效果概念图 (Concept Mockup)
+![Interactive Gesture Lab Mockup](assets/preview.png)
 
----
+### 真实网页截图 (Real Selector Screenshot)
+![Landing Page Screenshot](assets/screenshot.png)
 
 ## 🚀 快速启动 (Quick Start)
 
