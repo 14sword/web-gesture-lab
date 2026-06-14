@@ -31,12 +31,7 @@
 
 ---
 
-## 📸 预览 (Preview)
-
-*(可放置预览图片或 GIF 演示)*
-```bash
-assets/demo.gif
-```
+![Interactive Gesture Lab Preview](assets/preview.png)
 
 ---
 

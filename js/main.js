@@ -13,16 +13,15 @@ function bgResize(){
   bgW = bgC.width = window.innerWidth;
   bgH = bgC.height = window.innerHeight;
   bgP = [];
-  for(let i=0; i<60; i++) {
+  for(let i=0; i<40; i++) {
     bgP.push({
       x: Math.random()*bgW,
       y: Math.random()*bgH,
       s: 0.6 + Math.random()*1.4,
       sp: 0.05 + Math.random()*0.12,
-      baseAlpha: 0.05 + Math.random()*0.12,
+      a: 0.02 + Math.random()*0.03,
       d: (Math.random() - 0.5)*0.15,
-      ph: Math.random()*6.28,
-      speedTwinkle: 0.001 + Math.random()*0.002
+      ph: Math.random()*6.28
     });
   }
 }
@@ -37,8 +36,7 @@ function bgRender(){
     if(p.x > bgW + 5) p.x = -5;
     bgX.beginPath();
     bgX.arc(p.x, p.y, p.s, 0, Math.PI*2);
-    const alpha = p.baseAlpha * (0.4 + 0.6 * Math.sin(Date.now() * p.speedTwinkle + p.ph));
-    bgX.fillStyle = `rgba(190, 215, 255, ${Math.max(0.01, alpha)})`;
+    bgX.fillStyle = `rgba(190, 215, 255, ${p.a})`;
     bgX.fill();
   });
 }
