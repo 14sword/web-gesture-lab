@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;600;900&family=Inter:wght@200;300;400;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;height:100%;overflow:hidden;background:#080810;font-family:'Inter','Noto Serif SC',sans-serif;touch-action:none}
+
+/* Background */
+.bgfx{position:fixed;inset:0;z-index:0}
+.bgfx canvas{width:100%;height:100%}
+
+/* ===== Portrait Hint (mobile only) ===== */
+#portrait-hint{
+  display:none;position:fixed;inset:0;z-index:100;
+  background:rgba(8,8,16,0.96);backdrop-filter:blur(12px);
+  align-items:center;justify-content:center;flex-direction:column;gap:16px}
+.portrait-icon{font-size:3rem;animation:rotateHint 2s ease-in-out infinite}
+@keyframes rotateHint{0%,100%{transform:rotate(0deg)}50%{transform:rotate(90deg)}}
+.portrait-text{font-size:1.2rem;color:rgba(255,255,255,0.85);letter-spacing:.1em;font-family:'Noto Serif SC',serif}
+.portrait-sub{font-size:.8rem;color:rgba(255,255,255,0.35);letter-spacing:.08em}
+
+/* Show on portrait phones */
+@media (max-width: 600px) and (orientation: portrait) {
+  #portrait-hint{display:flex}
+}
+
+/* ===== Camera Status ===== */
+#cam-status{
+  position:fixed;top:18px;left:50%;transform:translateX(-50%) translateY(-60px);
+  z-index:40;padding:8px 20px;border-radius:24px;
+  background:rgba(20,20,40,0.85);border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(12px);font-size:0.8rem;font-weight:300;letter-spacing:0.06em;
+  color:rgba(255,255,255,0.7);pointer-events:none;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .4s;opacity:0;white-space:nowrap}
+#cam-status.show{transform:translateX(-50%) translateY(0);opacity:1}
+#cam-status.error{color:rgba(255,120,100,0.9);border-color:rgba(255,80,60,0.2)}
+
+/* ===== Selector ===== */
+#selector{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;transition:opacity .6s cubic-bezier(0.16, 1, 0.3, 1),transform .6s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow:hidden}
+#selector.hidden{opacity:0;pointer-events:none;transform:scale(0.95)}
+
+/* Glowing Mesh Orbs */
+.glow-orb{
+  position:absolute;width:480px;height:480px;border-radius:50%;
+  filter:blur(130px);opacity:0.28;pointer-events:none;z-index:-1;
+  animation:floatOrb 20s infinite linear;
+}
+.glow-1{
+  background:radial-gradient(circle, rgba(0,180,255,0.7) 0%, rgba(0,100,255,0.2) 50%, transparent 70%);
+  top:10%;left:20%;
+}
+.glow-2{
+  background:radial-gradient(circle, rgba(255,80,120,0.7) 0%, rgba(255,20,80,0.2) 50%, transparent 70%);
+  bottom:10%;right:20%;
+  animation-delay:-10s;
+}
+@keyframes floatOrb{
+  0%{transform:translate(0,0) rotate(0deg) scale(0.95)}
+  50%{transform:translate(80px,50px) rotate(180deg) scale(1.15)}
+  100%{transform:translate(0,0) rotate(360deg) scale(0.95)}
+}
+
+#selector h1{font-family:'Noto Serif SC',serif;font-size:3.2rem;font-weight:200;
+  background:linear-gradient(to bottom, #ffffff 40%, #c8e0ff 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  letter-spacing:.5em;text-indent:.5em;margin-bottom:.8rem;
+  filter:drop-shadow(0 0 30px rgba(255,255,255,0.18))}
+#selector .sub{font-size:.72rem;color:rgba(255,255,255,.26);letter-spacing:.36em;margin-bottom:3.6rem;display:flex;align-items:center;gap:16px;text-transform:uppercase}
+#selector .sub::before, #selector .sub::after {content:'';width:32px;height:1px;background:rgba(255,255,255,0.15)}
+
+.cards{display:flex;gap:36px;flex-wrap:wrap;justify-content:center}
+.card{width:290px;height:360px;border:1px solid rgba(255,255,255,.06);border-radius:24px;
+  background:linear-gradient(135deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.002) 100%);
+  backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+  cursor:pointer;transition:all .6s cubic-bezier(0.16, 1, 0.3, 1);position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+  box-shadow:0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08)}
+.card::before{
+  content:'';position:absolute;inset:0;border-radius:24px;padding:1px;
+  background:linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 40%, rgba(255,255,255,0.04) 100%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;transition:all 0.6s}
+
+.card:hover{
+  background:linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%);
+  transform:translateY(-12px) scale(1.02)}
+
+.card[data-view="ink"]:hover{
+  border-color:rgba(0,180,255,0.38);
+  box-shadow:0 35px 70px rgba(0,0,0,0.55), 0 0 40px rgba(0,180,255,0.25)}
+.card[data-view="tree"]:hover{
+  border-color:rgba(255,90,120,0.38);
+  box-shadow:0 35px 70px rgba(0,0,0,0.55), 0 0 40px rgba(255,90,120,0.25)}
+
+.card:hover::before{
+  background:linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 30%, rgba(255,255,255,0.15) 100%)}
+.card:active{transform:translateY(-4px) scale(0.985)}
+
+/* Colored chambers inside card icons */
+.card-icon-container {
+  width: 72px; height: 72px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; transition: all .6s cubic-bezier(0.16, 1, 0.3, 1)}
+
+.card[data-view="ink"] .card-icon-container {
+  background: rgba(0, 180, 255, 0.04);
+  border: 1px solid rgba(0, 180, 255, 0.15);
+  box-shadow: inset 0 0 12px rgba(0, 180, 255, 0.08);
+}
+.card[data-view="ink"]:hover .card-icon-container {
+  background: rgba(0, 180, 255, 0.12);
+  border-color: rgba(0, 180, 255, 0.4);
+  transform: scale(1.08) rotate(3deg);
+  box-shadow: inset 0 0 16px rgba(0, 180, 255, 0.2), 0 0 20px rgba(0, 180, 255, 0.15);
+}
+
+.card[data-view="tree"] .card-icon-container {
+  background: rgba(255, 90, 120, 0.04);
+  border: 1px solid rgba(255, 90, 120, 0.15);
+  box-shadow: inset 0 0 12px rgba(255, 90, 120, 0.08);
+}
+.card[data-view="tree"]:hover .card-icon-container {
+  background: rgba(255, 90, 120, 0.12);
+  border-color: rgba(255, 90, 120, 0.4);
+  transform: scale(1.08) rotate(-3deg);
+  box-shadow: inset 0 0 16px rgba(255, 90, 120, 0.2), 0 0 20px rgba(255, 90, 120, 0.15);
+}
+
+.card-icon {
+  width: 36px; height: 36px; display: flex;
+  align-items: center; justify-content: center;
+  transition: transform .6s cubic-bezier(0.16, 1, 0.3, 1)}
+
+.card-title{font-family:'Inter','Noto Serif SC',sans-serif;font-size:1.2rem;font-weight:500;color:rgba(255,255,255,.85);letter-spacing:.1em;transition:color .4s}
+.card:hover .card-title{color:#fff;text-shadow:0 0 20px rgba(255,255,255,0.25)}
+.card-desc{font-size:.76rem;color:rgba(255,255,255,.45);text-align:center;padding:0 24px;line-height:1.8;font-weight:300;transition:color .4s}
+.card:hover .card-desc{color:rgba(255,255,255,.75)}
+
+.card-glow{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:40%;height:1px;transition:all .6s}
+.card[data-view="ink"] .card-glow{background:linear-gradient(90deg,transparent,rgba(0,180,255,.5),transparent)}
+.card[data-view="tree"] .card-glow{background:linear-gradient(90deg,transparent,rgba(255,90,120,.5),transparent)}
+.card:hover .card-glow{width:80%;box-shadow: 0 0 15px rgba(255,255,255,0.1)}
+
+/* ===== Project Views ===== */
+.view{position:fixed;inset:0;z-index:10;opacity:0;pointer-events:none;
+  transition:opacity .45s cubic-bezier(.4,0,.2,1),transform .45s cubic-bezier(.34,1.56,.64,1);
+  transform:scale(0.96)}
+.view.active{opacity:1;pointer-events:auto;transform:scale(1)}
+.view canvas{position:absolute;inset:0}
+#view-ink{background:radial-gradient(ellipse at center,#0a0a2a 0%,#050510 100%)}
+
+/* Back button — touch-friendly size */
+#back{position:fixed;top:12px;left:12px;z-index:30;width:44px;height:44px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.4);backdrop-filter:blur(4px);
+  color:rgba(255,255,255,.35);font-size:16px;cursor:pointer;display:none;
+  align-items:center;justify-content:center;transition:all .3s}
+#back.show{display:flex}
+#back:hover{color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.2)}
+#back:active{transform:scale(0.9)}
+
+/* Camera preview (small thumbnail bottom-right) */
+#cam{position:fixed;bottom:10px;right:10px;width:80px;height:60px;
+  border:1px solid rgba(255,255,255,.03);z-index:25;opacity:0;
+  object-fit:cover;transform:scaleX(-1);display:none;transition:opacity .6s;border-radius:4px}
+#cam.on{opacity:.15}
+
+/* Gesture HUD label */
+#gesture-label{position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-10px);z-index:30;
+  padding:10px 24px;border-radius:30px;background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:300;letter-spacing:0.08em;
+  color:rgba(255,255,255,0.9);box-shadow:0 10px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+  pointer-events:none;transition:opacity .4s, transform .4s;opacity:0;text-align:center;
+  display:flex;align-items:center;gap:12px;white-space:nowrap}
+#gesture-label.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 640px) {
+  #selector h1{font-size:1.8rem;letter-spacing:.25em;text-indent:.25em}
+  #selector .sub{font-size:.65rem;letter-spacing:.2em;margin-bottom:2rem}
+  .cards{flex-direction:column;gap:20px;padding:0 16px}
+  .card{width:min(280px, 85vw);height:auto;padding:28px 20px}
+  .card-title{font-size:1rem}
+  .card-desc{font-size:.68rem}
+  #gesture-label{font-size:.75rem;padding:8px 16px;max-width:90vw;white-space:normal;text-align:center}
+  #cam-status{font-size:.72rem;max-width:90vw;white-space:normal;text-align:center}
+  #back{top:10px;left:10px;width:44px;height:44px}
+  #music-btn{top:10px;right:10px}
+}

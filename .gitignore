@@ -1,0 +1,47 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+web_reach/
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Editor directories and files
+.vscode/
+.idea/
+.claude/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS metadata files
+.DS_Store
+Thumbs.db
+
+# Python files
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env/
+
+# Project local Wasm files/libraries downloaded via setup.py (exclude from git because they are downloaded dynamically)
+lib/hands_solution_packed_assets.data
+lib/hands_solution_simd_wasm_bin.wasm
+lib/hands_solution_packed_assets_bin.wasm
+lib/hands.js
+lib/camera_utils.js

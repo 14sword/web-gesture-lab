@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#080810">
+<title>手势交互 · GESTURE LAB</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<div class="bgfx"><canvas id="bg-c"></canvas></div>
+
+<!-- Portrait mode hint (mobile only) -->
+<div id="portrait-hint">
+  <div class="portrait-inner">
+    <div class="portrait-icon">📱→📺</div>
+    <div class="portrait-text">请将手机横向放置</div>
+    <div class="portrait-sub">横屏可获得最佳手势识别体验</div>
+  </div>
+</div>
+
+<!-- Camera status badge -->
+<div id="cam-status"></div>
+
+<div id="selector">
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+  <h1>手势交互</h1>
+  <div class="sub">GESTURE LAB</div>
+  <div class="cards">
+    <div class="card" data-view="ink">
+      <div class="card-icon-container">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(0,180,255,0.7)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="6" />
+          <path d="M2 12h20" transform="rotate(-15 12 12)" />
+          <path d="M6 12a8.5 4.5 0 0 0 12 0" transform="rotate(-15 12 12)" />
+        </svg>
+      </div>
+      <div class="card-title">星尘漩涡</div>
+      <div class="card-desc">星云变幻 · 流体力学<br>手势塑形 · 粒子拖拽</div>
+      <div class="card-glow"></div>
+    </div>
+    <div class="card" data-view="tree">
+      <div class="card-icon-container">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,90,120,0.7)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L3 17h18L12 2z" />
+          <path d="M12 17v4" />
+          <path d="M12 6l3 5H9l3-5z" />
+          <circle cx="12" cy="2" r="1.5" fill="rgba(255,220,120,0.8)" stroke="none" />
+        </svg>
+      </div>
+      <div class="card-title">粒子圣诞</div>
+      <div class="card-desc">发光粒子 · 3D造型<br>手势旋转 · 心形切换</div>
+      <div class="card-glow"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Ink view -->
+<div class="view" id="view-ink">
+  <canvas id="ink-c"></canvas>
+</div>
+
+<!-- Tree view -->
+<div class="view" id="view-tree">
+  <canvas id="tree-c"></canvas>
+</div>
+
+<button id="back">←</button>
+<button id="music-btn" style="position:fixed;top:12px;right:12px;z-index:30;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.4);backdrop-filter:blur(4px);color:rgba(255,255,255,.2);font-size:16px;cursor:pointer;display:none;align-items:center;justify-content:center;transition:all .3s">♪</button>
+<video id="cam" autoplay playsinline muted></video>
+<div id="gesture-label"></div>
+
+<audio id="bgm" src="bgm.m4a" preload="auto" loop></audio>
+<audio id="xmas-bgm" src="xmas.m4a" preload="auto" loop></audio>
+
+<!-- Load Script Modules -->
+<script src="js/audio.js"></script>
+<script src="js/gesture.js"></script>
+<script src="js/solar.js"></script>
+<script src="js/solar_draw.js"></script>
+<script src="js/tree.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
