@@ -18,6 +18,7 @@
 
 - 🖐️ **纯摄像头手势驱动 (Pure Camera Mode)**：彻底摆脱鼠标/键盘，100% 依赖手势识别作为唯一输入源，带来纯粹的空中阻尼交互感。
 - 📱 **多端全设备自适应 (Cross-Platform)**：桌面端/移动端全兼容。移动端自动降级摄像头分辨率（320x240）并启用低耗电模型（`modelComplexity: 0`），并集成静音自动播放音频与竖屏横放提示层。
+- ⏳ **极佳交互引导 (Interactive Onboarding)**：新增高颜值毛玻璃加载界面（Glassmorphic Loader），将摄像头权限获取与 AI 神经网络模型下载阶段可视化，提供渐进式步骤指引，彻底解决加载等待焦虑。
 - 🎨 **两大魔幻粒子交互模式**：
   - **星尘漩涡 (Stardust Vortex)**：基于流体力学的星体拖拽、吸附与引力模拟。
   - **粒子圣诞 (Christmas Tree)**：支持手势旋转、心形聚拢与礼物喷发的 3D 圣诞树粒子系统。
@@ -115,8 +116,19 @@ gesture-lab/
 | 🤟 **三指 (heart)**  | 流体涡流 | 引力点激起剧烈的流体漩涡并变形 | 圣诞树粒子渐变组成 3D 红色桃心 |
 | 🖐️ **全掌 (stream)** | 流体喷发 | 指尖激起排斥波，尘埃向外喷涌 | 树顶的璀璨流光开始向下喷发礼盒 |
 
----
+## 📌 路线图 (Roadmap)
+
+我们已规划了双手互动、自定义手势按键映射以及 WebGL 高性能渲染等迭代。完整规划请查看 [TODO.md](TODO.md)。
+
+## 🤝 贡献 (Contributing)
+
+欢迎提交 PR 与 Issue！若要贡献代码，请查看 [CONTRIBUTING.md](CONTRIBUTING.md) 以了解提交规范。
 
 ## 📄 许可证 (License)
 
 本项目基于 [MIT License](LICENSE) 协议开源，详情请参见主目录下的 `LICENSE` 文件。
+
+## 👤 作者 (Author)
+
+GitHub: [@14sword](https://github.com/14sword)
+

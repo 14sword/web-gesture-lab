@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to Semantic Versioning.
 
+## [1.0.1] - 2026-06-15
+
+### Added
+- **毛玻璃主加载器 (Premium Main Loader)**：主界面新增玻璃化加载界面，提供渐进式状态提示（摄像头授权、组件包下载、网络状态），并在异常时显示重试按钮。
+- **选择页入场动画 (Entrance Transition)**：加载成功后加载器平滑隐去，选择卡片容器自动执行滑入与淡入组合过渡效果。
+
+### Optimized
+- **冗余代码清理**：清理了 `audio.js` 与 `solar.js` 中早期残留的未用手势逻辑与音效合成块（包括 `scatter`、`gravity`、`reset`、`zoom` 等），保证纯摄像头模式下 5 种核心手势的精简响应。
+
 ## [1.0.0] - 2026-06-14
 
 ### Added

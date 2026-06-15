@@ -157,13 +157,13 @@ function updateSolar(){
   let hMain = ActiveHands[0];
   if (hMain && hMain.visible && hMain.confirmedType !== 'none') {
       const gt = hMain.confirmedType;
-      if (gt === 'gather' || gt === 'reset' || gt === 'rotate') {
+      if (gt === 'gather' || gt === 'rotate') {
           targetShape = 'pillars';
           isOverride = true;
-      } else if (gt === 'gravity' || gt === 'heart' || gt === 'zoom' || gt === 'attract') {
+      } else if (gt === 'heart' || gt === 'attract') {
           targetShape = 'eye';
           isOverride = true;
-      } else if (gt === 'stream' || gt === 'scatter') {
+      } else if (gt === 'stream') {
           targetShape = 'butterfly';
           isOverride = true;
       }

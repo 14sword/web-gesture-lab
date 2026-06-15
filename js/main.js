@@ -137,4 +137,26 @@ function mainLoop(){
 // Start orchestrator
 bgResize();
 mainLoop();
-initCamera().then(ok => console.log('Camera:', ok ? 'ready' : 'unavailable'));
+initCamera().then(ok => {
+  console.log('Camera init result:', ok);
+  const loader = $('main-loader');
+  const cards = document.querySelector('.cards');
+  if (ok) {
+    if (loader) loader.classList.add('hidden');
+    if (cards) cards.classList.add('show');
+  } else {
+    // Show error state inside the loader card
+    const spinner = document.querySelector('.loader-spinner');
+    const loaderText = document.querySelector('.loader-text');
+    const loaderSub = document.querySelector('.loader-sub');
+    const retryBtn = $('retry-btn');
+    if (spinner) spinner.style.display = 'none';
+    if (loaderText) loaderText.textContent = '❌ 初始化未就绪';
+    if (loaderSub) loaderSub.textContent = '手势识别组件加载失败，或摄像头权限被拒绝。请确保在浏览器中允许摄像头访问，并刷新页面重试。';
+    if (retryBtn) {
+      retryBtn.style.display = 'block';
+      retryBtn.onclick = () => window.location.reload();
+    }
+  }
+});
+

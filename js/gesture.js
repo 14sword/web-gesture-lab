@@ -105,13 +105,49 @@ function detectGesture(lm){
 // ----------------------------------------------------------------
 function setCamStatus(msg, isError) {
   const el = document.getElementById('cam-status');
-  if (!el) return;
-  if (!msg) {
-    el.classList.remove('show');
-    return;
+  if (el) {
+    if (!msg) {
+      el.classList.remove('show');
+    } else {
+      el.textContent = msg;
+      el.className = 'show' + (isError ? ' error' : '');
+    }
   }
-  el.textContent = msg;
-  el.className = 'show' + (isError ? ' error' : '');
+
+  // Also sync with main selector loader if it exists and is visible
+  const loader = document.getElementById('main-loader');
+  if (loader && !loader.classList.contains('hidden') && msg) {
+    const loaderText = loader.querySelector('.loader-text');
+    const loaderSub = loader.querySelector('.loader-sub');
+    const spinner = loader.querySelector('.loader-spinner');
+    
+    if (loaderText) {
+      loaderText.textContent = msg;
+    }
+    
+    if (isError) {
+      if (spinner) spinner.style.display = 'none';
+      if (loaderSub) {
+        loaderSub.textContent = '手势库或摄像头启动异常，请刷新重试或检查浏览器权限。';
+      }
+      const retryBtn = document.getElementById('retry-btn');
+      if (retryBtn) {
+        retryBtn.style.display = 'block';
+        retryBtn.onclick = () => window.location.reload();
+      }
+    } else {
+      // Provide helpful contextual sub-text based on current state
+      if (loaderSub) {
+        if (msg.includes('权限')) {
+          loaderSub.textContent = '请允许浏览器使用摄像头。本程序仅在本地进行图像计算，绝对不会上传您的隐私数据。';
+        } else if (msg.includes('加载')) {
+          loaderSub.textContent = '首次加载可能需要从 CDN 获取 AI 神经网络模型资源（约10MB），请确保网络畅通。';
+        } else if (msg.includes('就绪')) {
+          loaderSub.textContent = '手势引擎加载成功！开始你的交互之旅。';
+        }
+      }
+    }
+  }
 }
 
 // ----------------------------------------------------------------

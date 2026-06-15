@@ -67,7 +67,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#080810;font-family:
 #selector .sub{font-size:.72rem;color:rgba(255,255,255,.26);letter-spacing:.36em;margin-bottom:3.6rem;display:flex;align-items:center;gap:16px;text-transform:uppercase}
 #selector .sub::before, #selector .sub::after {content:'';width:32px;height:1px;background:rgba(255,255,255,0.15)}
 
-.cards{display:flex;gap:36px;flex-wrap:wrap;justify-content:center}
+.cards{display:flex;gap:36px;flex-wrap:wrap;justify-content:center;opacity:0;transform:translateY(30px);pointer-events:none;transition:opacity .8s cubic-bezier(0.16, 1, 0.3, 1), transform .8s cubic-bezier(0.16, 1, 0.3, 1)}
+.cards.show{opacity:1;transform:translateY(0);pointer-events:auto}
 .card{width:290px;height:360px;border:1px solid rgba(255,255,255,.06);border-radius:24px;
   background:linear-gradient(135deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.002) 100%);
   backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
@@ -185,4 +186,87 @@ html,body{width:100%;height:100%;overflow:hidden;background:#080810;font-family:
   #cam-status{font-size:.72rem;max-width:90vw;white-space:normal;text-align:center}
   #back{top:10px;left:10px;width:44px;height:44px}
   #music-btn{top:10px;right:10px}
+  #main-loader{padding:20px 30px;gap:12px;width:calc(100% - 32px);max-width:320px}
+  .loader-spinner{width:40px;height:40px}
+  .loader-text{font-size:0.95rem}
+  .loader-sub{font-size:0.75rem;max-width:240px}
 }
+
+/* ===== Premium Main Loader ===== */
+#main-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 36px 48px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.005) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+  z-index: 25;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+#main-loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.92) translateY(24px);
+  position: absolute; /* Take out of flow after fade out so card layouts align perfectly */
+}
+.loader-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255, 255, 255, 0.05);
+  border-top: 3px solid #00b4ff;
+  border-right: 3px solid #ff5a78;
+  border-radius: 50%;
+  animation: loader-spin 1.2s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+  box-shadow: 0 0 20px rgba(0, 180, 255, 0.15);
+}
+@keyframes loader-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.loader-text {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  font-family: 'Noto Serif SC', serif;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+.loader-sub {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  text-align: center;
+  max-width: 320px;
+  line-height: 1.5;
+}
+#retry-btn {
+  margin-top: 10px;
+  padding: 10px 28px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 80, 60, 0.25);
+  background: rgba(255, 80, 60, 0.08);
+  color: rgba(255, 120, 100, 0.95);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(255, 80, 60, 0.1);
+}
+#retry-btn:hover {
+  background: rgba(255, 80, 60, 0.18);
+  border-color: rgba(255, 80, 60, 0.45);
+  box-shadow: 0 6px 16px rgba(255, 80, 60, 0.2), 0 0 10px rgba(255, 80, 60, 0.15);
+  transform: translateY(-1px);
+}
+#retry-btn:active {
+  transform: translateY(1px);
+}
+

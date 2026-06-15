@@ -74,14 +74,11 @@ function stopMusic(){
 function playGestureSound(type){
   initAudio();
   switch(type){
-    case 'scatter': playTone(880,0.1,0.15); playTone(1100,0.15,0.12); break;
     case 'gather':
     case 'attract': playTone(220,0.2,0.12); break;
     case 'heart': playTone(523.3,0.25,0.12); playTone(659.3,0.25,0.1); playTone(784,0.25,0.08); break;
     case 'rotate': playTone(440,0.1,0.08); break;
-    case 'gravity': playTone(330,0.2,0.1); playTone(277.2,0.2,0.1); break;
     case 'stream': playTone(587.3,0.08,0.08); playTone(659.3,0.08,0.08); playTone(784,0.12,0.08); break;
-    case 'reset': playTone(523.3,0.15,0.1); playTone(392,0.2,0.1); break;
   }
 }
 
