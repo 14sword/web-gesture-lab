@@ -42,15 +42,30 @@
 
 ### 1. 克隆仓库
 ```bash
-git clone https://github.com/yourname/gesture-lab.git
-cd gesture-lab
+git clone https://github.com/14sword/web-gesture-lab.git
+cd web-gesture-lab
 ```
 
 ### 2. 启动本地服务器
-由于 MediaPipe 运行 WebAssembly 资源存在浏览器跨域安全策略，项目**无法直接通过双击双击 `app.html` 打开**，必须托管在 HTTP 服务下。
+由于 MediaPipe 运行 WebAssembly 资源存在浏览器跨域安全策略，项目**无法直接通过双击 `app.html` 打开**，必须托管在 HTTP 服务下。
 
-#### 方法一：使用内置一键安装脚本（推荐 💡）
-项目附带了一个方便的 Python 一键启动和资源下载脚本：
+#### 方法一：使用 Homebrew 快捷启动（推荐 💡）
+如果您是 macOS 用户，可以直接通过项目内置的 Homebrew 脚本一键启动：
+```bash
+# 赋予启动脚本执行权限并启动
+chmod +x ./homebrew/ink-gesture-launcher.sh
+./homebrew/ink-gesture-launcher.sh
+```
+或者，您也可以直接通过 Homebrew 安装为系统全局命令：
+```bash
+# 直接安装远程 Formula
+brew install https://raw.githubusercontent.com/14sword/web-gesture-lab/main/homebrew/ink-gesture.rb
+
+# 之后在任意终端输入即可一键启动
+ink-gesture
+```
+
+#### 方法二：使用内置一键安装脚本
 ```bash
 python3 setup.py
 ```
@@ -59,13 +74,14 @@ python3 setup.py
 - 自动检测本地资源，拉取成功后在 `http://127.0.0.1:8000` 启动简易服务器。
 - 在浏览器中访问即可体验。
 
-#### 方法二：使用 Node.js 全局服务
+#### 方法三：使用 Node.js 全局服务
 如果您已经有 Node 环境，可以使用全局 `http-server`：
 ```bash
 npm install -g http-server
 http-server -p 8000
 ```
 然后在浏览器中打开: `http://localhost:8000/index.html`。
+
 
 ---
 
