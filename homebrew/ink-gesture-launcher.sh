@@ -6,6 +6,18 @@ cd "$PROJECT_ROOT" || exit 1
 
 echo "====== 水墨手势 // Web Gesture Lab ======"
 
+SERVER_PID=""
+
+# 自动退出清理后台服务进程
+cleanup() {
+    if [ ! -z "$SERVER_PID" ]; then
+        echo -e "\n[...] 正在关闭本地运行 of HTTP 服务进程 (PID: $SERVER_PID)..."
+        kill $SERVER_PID 2>/dev/null
+        echo "[✓] 服务已安全关闭。"
+    fi
+}
+trap cleanup EXIT INT TERM
+
 # 1. 检查并运行依赖下载 (MediaPipe)
 if [ ! -d "lib" ] || [ ! -f "lib/hands_solution_wasm_bin.wasm" ]; then
     echo "[...] 首次运行或依赖缺失：正在下载 MediaPipe 离线模型资源 (约 24MB)..."
@@ -56,8 +68,8 @@ fi
 if [ ! -z "$SERVER_PID" ]; then
     echo ""
     read -p "是否终止本地运行的 HTTP 服务进程？(Y/n): " stop_server
-    if [[ "$stop_server" =~ ^[Yy]*$ ]] || [ -z "$stop_server" ]; then
-        kill $SERVER_PID
-        echo "[✓] 服务已安全关闭。"
+    if [[ "$stop_server" =~ ^[Nn]*$ ]] && [ ! -z "$stop_server" ]; then
+        echo "[!] 服务进程将继续在后台运行 (PID: $SERVER_PID)。"
+        SERVER_PID=""
     fi
 fi
